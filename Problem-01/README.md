@@ -7,5 +7,5 @@ Learning :-
 2. style component.
 3. Call Component recusive .
 
-Output (below):- 
+**Output** :- 
 ![image](https://user-images.githubusercontent.com/54227183/176725498-61074193-160f-4693-bc3e-d17c8e846e3a.png)
