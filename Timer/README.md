@@ -1,2 +1,2 @@
 Implement Timer 
-![image](https://user-images.githubusercontent.com/54227183/177356506-1bee0558-de2c-4fe5-83bc-30fefb698928.png)
+![image](https://user-images.githubusercontent.com/54227183/177356737-23e708c0-790c-4740-bbca-f0ae02263cd3.png)
