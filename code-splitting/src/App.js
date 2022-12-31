@@ -1,35 +1,40 @@
-import { useState } from "react";
-import "./styles.css";
-let count;
-export default function App() {
-  const [timer, setTimer] = useState(0);
-  const [flag, setFlag] = useState(false);
-  function Start() {
-    setFlag(true);
-    count = setInterval(() => {
-      setTimer((prev) => prev + 1);
-    }, 1000);
-  }
-  function Pause() {
-    if (flag) {
-      clearInterval(count);
-    }
-  }
-  function Stop() {
-    setTimer(0);
-    if (flag) {
-      clearInterval(count);
-    }
-  }
+import React, { Suspense, useState } from "react";
+const Hello = React.lazy(() => import("./Hello"));
+const Photos = React.lazy(() => import("./multipleTab/Photos"));
+const Comments = React.lazy(() => import("./multipleTab/Comment"));
+
+export default function CodeSplitting() {
+  const [tab, setTab] = useState("Photos");
+  const onClickLoadDynamic = async () => {
+    const res = await import("./DynamicImport");
+    console.log(res.DynamicImport, "response");
+  };
+
+  // Avoid suspense transation like
+  // Loading....
+
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-      <input type="button" value="Start" onClick={Start} />
-      <input type="button" value="Stop" onClick={Stop} />
-      <input type="button" value="pause" onClick={Pause} />
-      <input type="button" value="resume" />
-      <p> timer :- {timer}</p>
-    </div>
+    <>
+      <div className="App" onClick={onClickLoadDynamic}>
+        Hello
+        <Suspense fallback={<div>Loading...</div>}>
+          <Hello />
+        </Suspense>
+      </div>
+      <div
+        onClick={() => {
+          if (tab === "Photos") {
+            setTab("Comment");
+          } else {
+            setTab("Photos");
+          }
+        }}
+      >
+        Switch Tab
+        <Suspense fallback={<div>Loading photos ot comments ......</div>}>
+          {tab === "Photos" ? <Photos /> : <Comments />}
+        </Suspense>
+      </div>
+    </>
   );
 }
